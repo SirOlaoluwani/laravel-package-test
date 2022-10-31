@@ -3,4 +3,5 @@
 use Illuminate\Support\Facades\Route;
 use Olaoluwani\UtmAnalytics\Controllers\UTMAnalyticsController;
 
-Route::get('api/utm-analytics', [UTMAnalyticsController::class, 'saveUTMAnalytics']);
+Route::post('api/utm-analytics/save/{user_id}', [UTMAnalyticsController::class, 'save']);
+Route::post('api/utm-analytics', [UTMAnalyticsController::class, 'list']);
