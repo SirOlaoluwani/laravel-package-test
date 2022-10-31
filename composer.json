@@ -1,0 +1,17 @@
+{
+    "name": "olaoluwani/utm-analytics",
+    "autoload": {
+        "psr-4": {
+            "Olaoluwani\\UtmAnalytics\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Olaoluwani Onafowope",
+            "email": "olaoluwanionafowope@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.0.1"
+    }
+}
