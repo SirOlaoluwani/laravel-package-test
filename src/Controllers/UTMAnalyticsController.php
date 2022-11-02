@@ -14,10 +14,8 @@ class UTMAnalyticsController
                 "utm_parameters" => 'required|string',
             ]);
 
-            $create = UserAnalytics::create([
-                ...$validated,
-                "user_id" => $user_id
-            ]);
+            $validated["user_id"] = $user_id;
+            $create = UserAnalytics::create($validated);
 
             $response = [
                 "data" => $create->load('user')
