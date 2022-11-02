@@ -3,12 +3,23 @@
 
 ## Installation
 
-Run the following command in your terminal
-
+Add following to the `composer.json` file
 ```php
-php artisan vendor:publish --provider="Olaoluwani\UtmAnalytics\Providers\UTMAnalyticsProvider" --tag="migrations"
+...
+"repositories": [
+    ...
+    {
+        "type": "vcs",
+        "url": "https://github.com/SirOlaoluwani/laravel-package-test"
+    }
+]
 ```
 
+the install via composer
+
+```php
+composer require olaoluwani/utm-analytics
+```
 
 Add the following in the `config/app` file
 
@@ -21,6 +32,13 @@ Add the following in the `config/app` file
 Olaoluwani\UtmAnalytics\Providers\UTMAnalyticsProvider::class
 ...
 ```
+
+Run the following command in your terminal
+
+```php
+php artisan vendor:publish --provider="Olaoluwani\UtmAnalytics\Providers\UTMAnalyticsProvider" --tag="migrations"
+```
+
 
 Then run migrations
 

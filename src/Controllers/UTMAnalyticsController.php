@@ -2,12 +2,8 @@
 
 namespace Olaoluwani\UtmAnalytics\Controllers;
 
-use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Validator;
 use Olaoluwani\UtmAnalytics\Models\UserAnalytics;
-use Olaoluwani\UtmAnalytics\UtmAnalytics;
 
 class UTMAnalyticsController
 {
@@ -15,10 +11,7 @@ class UTMAnalyticsController
         try {
             $validated = $request->validate([
                 "utm_source" => 'required|string',
-                "utm_medium" => 'required|string',
-                "utm_campaign" => 'required|string',
-                "utm_term" => 'required|string',
-                "utm_content" => 'required|string',
+                "utm_parameters" => 'required|string',
             ]);
 
             $create = UserAnalytics::create([
@@ -26,20 +19,28 @@ class UTMAnalyticsController
                 "user_id" => $user_id
             ]);
 
-            return response()->json([
-                "data" => $create,
-            ], 200);
+            $response = [
+                "data" => $create->load('user')
+            ];
+
+            return $request->wantsJson()
+                ? response()->json($response, 200) : $response;
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => $e->getMessage()
-            ], 400);
+            $errorData = ["message" => $e->getMessage()];
+            return $request->wantsJson()
+                ? response()->json($errorData, 400)
+                : $errorData;
         }
     }
 
     public function list() {
-        $data = UserAnalytics::all();
-        return response()->json([
+        $data = UserAnalytics::with("user")->get();
+
+        $response = [
             "data" => $data,
-        ], 200);
+        ];
+
+        return request()->wantsJson()
+            ? response()->json($response, 200) : $response;
     }
 }
